@@ -23,6 +23,7 @@ namespace HomeworkSkillBoxIfElseGame
             try
             {
                 valRange = Int32.Parse(Console.ReadLine());
+                if (valRange < 4) valRange = 4;
             }
             catch (FormatException e)
             {
@@ -85,7 +86,7 @@ namespace HomeworkSkillBoxIfElseGame
             return number;
         }
 
-        static void Congratulations(Player player, Robot bot= new())
+        static void Congratulations(Player player, Robot bot)
         {
             if (player != null)
                 Console.WriteLine($"Поздравляем {player.Nickname} с победой!");
@@ -110,7 +111,7 @@ namespace HomeworkSkillBoxIfElseGame
             else
             {
                 for (int index = 0; index < Bots.Length; index++)
-                    Bots[index] = new Robot("Bot_" + index.ToString(), false,0);
+                    Bots[index] = new Robot("Bot_" + index.ToString());
 
                 for (int index = 0; index < Players.Length; index++)
                 {
@@ -163,7 +164,7 @@ namespace HomeworkSkillBoxIfElseGame
                     player.Step(valueRange);
                     gameNumber -= player.Number;
 
-                    if (gameNumber == 0) { winner = true; Congratulations(player: player); break; }
+                    if (gameNumber == 0) { winner = true; Congratulations(player: player, bot: null); break; }
                     Console.WriteLine($"                                                  Результат: {gameNumber}");
                 }
 

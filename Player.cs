@@ -37,7 +37,7 @@ namespace HomeworkSkillBoxIfElseGame
 
             do
             {
-                Console.Write($"\nХод {this.Nickname} ");
+                Console.Write($"\nХод {this.Nickname} [1 - {valueRange}]: ");
                 string userInput;
                 do
                 {
@@ -50,7 +50,6 @@ namespace HomeworkSkillBoxIfElseGame
                 {
                     this.Number = userTry;
                     stepComplete = true;
-                    Console.WriteLine($"{this.Nickname}: {this.Number}");
                 }
                 else
                     Console.Write($"Введено значение недопустимого диапазона. Повтор хода.");
@@ -61,7 +60,7 @@ namespace HomeworkSkillBoxIfElseGame
 
     }
 
-    struct Robot
+    class Robot
     {
         public string Nickname;
         public bool Winner { get; set; }
@@ -73,6 +72,11 @@ namespace HomeworkSkillBoxIfElseGame
             this.Winner = Winner;
             this.Number = Number;
         }
+
+        public Robot(string Nickname) : this(Nickname,false,0)
+        {
+        }
+
         public void GenerateStep(int valueRange, int currentGameNumber) // valueRange - определяет диапазон от 1 до valueRange. Диапазон в котором пользователю разрешено сделать ход.
         {
             int userTry = 0;
@@ -90,7 +94,7 @@ namespace HomeworkSkillBoxIfElseGame
 
                     this.Number = userTry;
                     stepComplete = true;
-                    Console.WriteLine($"\nХод {this.Nickname}: {this.Number}");
+                    Console.WriteLine($"\nХод {this.Nickname} [1 - {valueRange}]: {this.Number}");
   
             } while (!stepComplete);
         }
