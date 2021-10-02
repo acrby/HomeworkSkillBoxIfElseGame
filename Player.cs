@@ -13,13 +13,19 @@ namespace HomeworkSkillBoxIfElseGame
         public bool Winner { get; set; }
         public int Number { get; set; }
 
+        public Player(string Nickname, bool Winner, int Number)
+        {
+            this.Nickname = Nickname;
+            this.Winner = Winner;
+            this.Number = Number;
+        }
         public string RunInputUser()
         {
-            Console.WriteLine("\n                                           Enter the player nickname: ");
+            Console.WriteLine("\n                                           Введите имя игрока: ");
             do
             {
                 Nickname = Convert.ToString(Console.ReadLine());
-            } while (!Regex.IsMatch(Nickname, "^[a-zA-Z]+$"));
+            } while (!Regex.IsMatch(Nickname, "^[a-zA-Z0-9]+$"));
 
                 return this.Nickname;
         }
@@ -55,12 +61,18 @@ namespace HomeworkSkillBoxIfElseGame
 
     }
 
-    class Robot
+    struct Robot
     {
-        public string Nickname = "Robot";
+        public string Nickname;
         public bool Winner { get; set; }
         public int Number { get; set; }
 
+        public Robot(string Nickname, bool Winner, int Number)
+        {
+            this.Nickname = Nickname;
+            this.Winner = Winner;
+            this.Number = Number;
+        }
         public void GenerateStep(int valueRange, int currentGameNumber) // valueRange - определяет диапазон от 1 до valueRange. Диапазон в котором пользователю разрешено сделать ход.
         {
             int userTry = 0;

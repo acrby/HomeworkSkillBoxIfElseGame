@@ -9,9 +9,10 @@ namespace HomeworkSkillBoxIfElseGame
         {
             Console.WriteLine("                                         Добро пожаловать в игру с числами.");
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
-            Console.WriteLine("Программа генерирует число в «корзину» от 12 до 120, после чего игрокам пошагово предлагается вводить числа от 1 до 4");
+            Console.WriteLine("Программа генерирует число в «корзину» от 12 до 120, после чего игрокам пошагово предлагается вводить числа от 1 до [указанного в настройках]");
             Console.WriteLine("После каждого шага программа вычитает введенное игроком число от предыдущего результата.");
             Console.WriteLine("Так происходит до тех пор, пока значение «корзины» не станет равно 0");
+            Console.WriteLine("Победителем признается тот, чей ход оказался решающим.");
             Console.WriteLine("---------------------------------------------------------------------------------------------------------------------");
         }
 
@@ -84,7 +85,7 @@ namespace HomeworkSkillBoxIfElseGame
             return number;
         }
 
-        static void Congratulations(Player player, Robot bot)
+        static void Congratulations(Player player, Robot bot= new())
         {
             if (player != null)
                 Console.WriteLine($"Поздравляем {player.Nickname} с победой!");
@@ -100,39 +101,22 @@ namespace HomeworkSkillBoxIfElseGame
 
             if (oneVSOne)
             {
-
                 for (int index = 0; index < Players.Length; index++)
                 {
-                    Players[index] = new Player();
-                    Players[index].Nickname = "";
-                    Players[index].Number = 0;
-                    Players[index].Winner = false;
-                }
-
-                for (int index = 0; index < Players.Length; index++)
+                    Players[index] = new Player("", false, 0);
                     Players[index].RunInputUser();
-
+                }
             }
             else
             {
                 for (int index = 0; index < Bots.Length; index++)
-                {
-                    Bots[index] = new Robot();
-                    Bots[index].Nickname = "Bot_" + index.ToString();
-                    Bots[index].Number = 0;
-                    Bots[index].Winner = false;
-                }
+                    Bots[index] = new Robot("Bot_" + index.ToString(), false,0);
 
                 for (int index = 0; index < Players.Length; index++)
                 {
-                    Players[index] = new Player();
-                    Players[index].Nickname = "";
-                    Players[index].Number = 0;
-                    Players[index].Winner = false;
-                }
-
-                for (int index = 0; index < Players.Length; index++)
+                    Players[index] = new Player("", false, 0);
                     Players[index].RunInputUser();
+                }           
             }
 
             return (Players, Bots);
@@ -143,8 +127,17 @@ namespace HomeworkSkillBoxIfElseGame
             WelcomeRules();
             bool winner = false;
             bool oneOnOne = PlayerVsPlayer(); // Определяем тип игры (Игрок VS Игрок / Игрок VS ИИ)
-            int PlayersQty = SetPlayersQty(); // Указываем количество игроков
-            int BotsQty = SetBotsQty(); // Указываем количество ботов
+            int PlayersQty = 0, BotsQty = 0;
+
+            // В зависимости от типа игры, спрашиваем у игрока количество игроков || ботов + игроков
+            if (oneOnOne)
+                PlayersQty = SetPlayersQty();
+            else
+            {
+                PlayersQty = SetPlayersQty();
+                BotsQty = SetBotsQty();
+            }
+
             //инициализация игроков и создание экземпляров класса Player с частичной инициализацией конструктора.
             var Initial = PlayersInitial(oneOnOne, PlayersQty, BotsQty); // 5 строчек, включая эту, с моей точки зрения, самые сложные для понимания.
             Player[] Players = new Player[PlayersQty];
@@ -170,7 +163,7 @@ namespace HomeworkSkillBoxIfElseGame
                     player.Step(valueRange);
                     gameNumber -= player.Number;
 
-                    if (gameNumber == 0) { winner = true; Congratulations(player: player, bot: null); break; }
+                    if (gameNumber == 0) { winner = true; Congratulations(player: player); break; }
                     Console.WriteLine($"                                                  Результат: {gameNumber}");
                 }
 
