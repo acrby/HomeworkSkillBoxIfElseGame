@@ -9,16 +9,27 @@ namespace HomeworkSkillBoxIfElseGame
 {
     class Player
     {
+        #region Поля
         public string Nickname { get; set; }
         public bool Winner { get; set; }
         public int Number { get; set; }
+        #endregion
 
+        #region Конструкторы
         public Player(string Nickname, bool Winner, int Number)
         {
             this.Nickname = Nickname;
             this.Winner = Winner;
             this.Number = Number;
         }
+        #endregion
+
+        #region Методы
+
+        /// <summary>
+        /// Заполнение Nickname игрока
+        /// </summary>
+        /// <returns></returns>
         public string RunInputUser()
         {
             Console.WriteLine("\n                                           Введите имя игрока: ");
@@ -30,6 +41,10 @@ namespace HomeworkSkillBoxIfElseGame
                 return this.Nickname;
         }
 
+        /// <summary>
+        /// Обработка логики выполнения хода игроком
+        /// </summary>
+        /// <param name="valueRange">Ограничение максимального диапазона для хода игрока</param>
         public void Step(int valueRange) // valueRange - определяет диапазон от 1 до valueRange. Диапазон в котором пользователю разрешено сделать ход.
         {
             int userTry = 0;
@@ -55,9 +70,7 @@ namespace HomeworkSkillBoxIfElseGame
                     Console.Write($"Введено значение недопустимого диапазона. Повтор хода.");
             } while (!stepComplete);
         }
-
-
-
+        #endregion
     }
 
     class Robot
@@ -77,8 +90,8 @@ namespace HomeworkSkillBoxIfElseGame
         {
         }
 
-        public void GenerateStep(int valueRange, int currentGameNumber) // valueRange - определяет диапазон от 1 до valueRange. Диапазон в котором пользователю разрешено сделать ход.
-        {
+        public void GenerateStep(int valueRange, int currentGameNumber) // valueRange - определяет диапазон от 1 до valueRange. 
+        {                                                                  //Диапазон в котором пользователю разрешено сделать ход.
             int userTry = 0;
             bool stepComplete = false;
             var rand = new Random();
