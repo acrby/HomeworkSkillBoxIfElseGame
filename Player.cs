@@ -98,8 +98,6 @@ namespace HomeworkSkillBoxIfElseGame
 
             do
             {
-                //Console.Write($"\nХод {this.Nickname} ");
-
                 if (currentGameNumber <= valueRange)
                     userTry = currentGameNumber;
                 else

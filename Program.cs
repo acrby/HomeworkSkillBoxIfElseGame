@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HomeworkSkillBoxIfElseGame
 {
@@ -94,28 +95,29 @@ namespace HomeworkSkillBoxIfElseGame
                 Console.WriteLine($"Поздравляем {bot.Nickname} с победой!");
         }
 
-        static (Player[], Robot[]) PlayersInitial(bool typeOfGame, int PlayersQty, int BotsQty)
+        static (List<Player>, Robot[]) PlayersInitial(bool typeOfGame, int PlayersQty, int BotsQty)
         {
-            bool oneVSOne = false;
-            Player[] Players = new Player[PlayersQty];
+            bool oneVSOne = typeOfGame;
+           //Player[] Players = new Player[PlayersQty];
             Robot[] Bots = new Robot[BotsQty];
+            List<Player> Players = new List<Player>();
 
             if (oneVSOne)
             {
-                for (int index = 0; index < Players.Length; index++)
+                for (int index = 0; index < PlayersQty; index++)
                 {
-                    Players[index] = new Player("", false, 0);
+                    Players.Add (new Player("", false, 0));
                     Players[index].RunInputUser();
                 }
             }
             else
             {
-                for (int index = 0; index < Bots.Length; index++)
+                for (int index = 0; index < BotsQty; index++)
                     Bots[index] = new Robot("Bot_" + index.ToString());
 
-                for (int index = 0; index < Players.Length; index++)
+                for (int index = 0; index < PlayersQty; index++)
                 {
-                    Players[index] = new Player("", false, 0);
+                    Players.Add(new Player("", false, 0));
                     Players[index].RunInputUser();
                 }           
             }
@@ -141,7 +143,7 @@ namespace HomeworkSkillBoxIfElseGame
 
             //инициализация игроков и создание экземпляров класса Player с частичной инициализацией конструктора.
             var Initial = PlayersInitial(oneOnOne, PlayersQty, BotsQty); // 5 строчек, включая эту, с моей точки зрения, самые сложные для понимания.
-            Player[] Players = new Player[PlayersQty];
+            List<Player> Players = new List<Player>(PlayersQty);
             Robot[] Bots = new Robot[BotsQty];
             Players = Initial.Item1;
             Bots = Initial.Item2;
